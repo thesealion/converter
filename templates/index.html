@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Currency Converter</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Конвертация валют</h1>
+        {% if error %}
+            <div class="alert alert-danger">{{ error }}</div>
+        {% endif %}
+        <form action="" method="get">
+            <div class="form-group">
+                <label>
+                    Сумма
+                    <input type="number" step="any" name="amount" value="{{ args['amount'] }}">
+                </label>
+            </div>
+            <div class="form-group">
+                <label>
+                    Конвертировать из
+                    <select name="from">
+                        <option value=""></option>
+                        {% for code in currencies %}
+                            <option value="{{ code }}"{% if code == args['from'] %} selected="selected"{% endif %}>{{ code }}</option>
+                        {% endfor %}
+                    </select>
+                </label>
+            </div>
+            <div class="form-group">
+                <label>
+                    Конвертировать в
+                    <select name="to">
+                        <option value=""></option>
+                        {% for code in currencies %}
+                            <option value="{{ code }}"{% if code == args['to'] %} selected="selected"{% endif %}>{{ code }}</option>
+                        {% endfor %}
+                    </select>
+                </label>
+            </div>
+            {% if result != None %}
+                <div class="form-group">
+                    Результат: {{ result|round(4) }}
+                </div>
+            {% endif %}
+            <input type="submit" class="btn btn-default" value="Конвертировать">
+        </form>
+    </div>
+</body>
+</html>
