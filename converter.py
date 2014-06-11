@@ -40,7 +40,6 @@ def load_currencies():
     currencies = {}
     for currency in tree.iter('Valute'):
         data = {child.tag: child.text for child in currency}
-        data['Nominal']
         nominal, value = [Decimal(data[field].replace(',', '.')) for field in ('Nominal', 'Value')]
         value /= nominal
         currencies[data['CharCode']] = value
